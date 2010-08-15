@@ -7,6 +7,9 @@ mobilejoomla.buildout is automated method to install full
 Joomla! and Mobilejoomla! AMP stack as a local user. mobilejoomla.buildout is based on `buildout <http://www.buildout.org>`_
 configuration automator.
 
+Setting up a local AMP stack for Joomla! development on your workstation by hand may easily take one workday.
+This automated script is designed to cut that time to ten minutes of effective work time.  
+
 mobilejoomla.buildout target audience is developers who wish to contribute to Mobilejoomla! development
 or site integrators who wish to test Mobilejoomla! easily.
 
@@ -16,7 +19,8 @@ or site integrators who wish to test Mobilejoomla! easily.
 
 * It will installed Apache+MySQL+PHP stack   
 
-* Applications and libraries are compiled from the scratch so they have known good set (KGS) and you do not need to struggle with distribution specific problems
+* Applications and libraries are compiled from the scratch so they have known good set (KGS) and you do not need to struggle with distribution specific problems. 
+  This includes support for gd, mysqli, zlib and mcrypt PHP modules and Terawurfl handset database. 
 
 * It does not touch any system files which guarantees your computer won't get hosed (everything is done as normal user)
 
@@ -26,9 +30,20 @@ or site integrators who wish to test Mobilejoomla! easily.
 
 * Optionally, you can also install Wordpress, SugarCRM and other PHP applications using the same buildout 
 
+* The buildout also makes it very clear you stand on the shoulders of a giant: the amount of free software
+  which is pulled in to run your applications is very visible
+
+.. note ::
+
+    In theory, you can run AMP stack on shared hosting using this automated configuration. 
+    However, creating full AMP stack takes a lot of server resources and might
+    not be approved by the hosting company.
+
 .. note ::
 
 	This buildout is not safe for production usage as it contains default passwords.
+	
+The work is licensed under GPL 2 license.
 
 Support operating systems
 -------------------------
@@ -63,22 +78,40 @@ Prerequisitments
 
 You need to have Python 2.6, GCC compiler and Git installed on your system.
 
+OSX
++++
+
+* Install `XCode <http://developer.apple.com/mac/>`_ 
+
+* Install `Macports <http://www.macports.org/>`_ 
+
+* After Macports you can install required command-line software to run buildout
+
+   % sudo port install python2.6
+   % sudo port install git-core +svn
+
+Linux
++++++
+
+These instructions apply for Debian/Ubuntu. You might need to adapt them for your distribution.
+
+Install 
+
 Terminal commands
 -----------------
 
 This will checkout the latest mobilejoomla.buildout from Github and run it for you.
 
-    % git clone http://xxx
+    % git clone git://github.com/miohtama/mobilejoomla.buildout.git
     % cd mobilejoomla.buildout
     % python bootstrap.py
     % bin/buildout
 
 .. note ::
 
-	Running buildout command may take up to two hours time as it will download
+	Running buildout command may take up to one hour time as it will download
 	LAMP stack source code and compile it for you.
 
-	
 Then you need to set MySQL master password (admin/admin)
 
     % parts/mysql/bin/mysqladmin -u admin password 'admin'
@@ -87,15 +120,24 @@ The set-up is following:
 
 * Apache port 17881
 
+* Apache logs: ``var/log``
+
+* Apache web server root: ``htdocs``
+
 * MySQL port 17882
 
 * MySQL user: root / admin
 
-* Joomla: not installed, will enter to Joomla installation screen
+* MySQL logs: ``var/log``
+
+* Joomla admin login http://localhost:17881/joomla/administrator/
+
+* Joomla: admin user is admin/admin.
 
 * Mobilejoomla: not installe, you need to perform manual installation after 
 
 * phpMyAdmin: http://localhost:17881/phpmyadmin
+
 	 
 Usage
 =====
@@ -104,11 +146,16 @@ A utility daemon called `supervisord <http://supervisord.org/>`_ is used to mana
 
 You can start MySQL and Apache with the following command
 
-    % bin/supervisord -c parts/supervisor/supervisord.conf -n
+    % bin/supervisord -n
 	
 This will start supervisor process on foreground (non-daemonized mode). When supervisor is terminated,
 it will terminate all process started by itself.	
 Both MySQL and Apache will be taken down when you press Control-C in the terminal.
+
+When you are launching for the first time you need to run the installation
+script which will set-up the databases (in buildout folder)
+
+    % parts/mysql/bin/mysqladmin --socket=var/mysql.sock -u root password 'admin'
 
 Joomla web site browsing
 ------------------------
@@ -136,6 +183,13 @@ Use ifconfig to figure out your local WLAN ip address (note: this is usually dif
 Then you would enter the following to your mobile browser::
 
     http://192.168.1.130:17881
+    
+Joomla installation steps
+-------------------------
+
+* Run PHP installer
+
+* Remove installer directory (rename installation -> _installation)
 
 Ports
 -----
@@ -148,12 +202,22 @@ If you need to change any ports edit buildout.cfg, application specific section 
     are being generated when buildout is run, they do not read buildout.cfg itself. 
     Thus, if you edit buildout.cfg you need to always rerun buildout to make changes effective.
 
+Contact
+-------
+
+Please report any issues through Github issue tracker.
+
 Kudos
-=============
+------
 
 This buildout is orignally based on Alex Clark's effort
 
 * http://old.aclark.net/team/aclark/blog/a-lamp-buildout-for-wordpress-and-other-php-apps
 
+* http://mfabrik.com
 
+Further reading
+===============
+
+* http://docs.joomla.org/Setting_up_your_workstation_for_extension_development
 
