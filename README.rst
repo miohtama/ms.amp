@@ -77,6 +77,7 @@ Prerequisitments
 ----------------
 
 You need to have Python 2.6, GCC compiler and Git installed on your system.
+Also you need to have tar, gzip and bzip2 commands available.
 
 OSX
 +++
@@ -88,7 +89,7 @@ OSX
 * After Macports you can install required command-line software to run buildout
 
    % sudo port install python2.6
-   % sudo port install git-core +svn
+   % sudo port install git-core +svn bzip2 tar gzip
 
 Linux
 +++++
@@ -126,7 +127,11 @@ The set-up is following:
 
 * MySQL port 17882
 
+* MySQL host: localhost
+
 * MySQL user: root / admin
+
+* MySQL database name: joomla
 
 * MySQL logs: ``var/log``
 
@@ -201,6 +206,55 @@ If you need to change any ports edit buildout.cfg, application specific section 
     Editing buildout.cfg does not change any values direclty. Different application specific configuration files
     are being generated when buildout is run, they do not read buildout.cfg itself. 
     Thus, if you edit buildout.cfg you need to always rerun buildout to make changes effective.
+
+Workflow
+---------
+
+This is how to work with Mobilejoomla! code base.
+
+Seeing soure code tree status::
+
+    git status
+
+Adding files::
+    
+    git add newfile 
+    git commit -m "Added the a file"
+    
+Updating modified file::
+
+    git add modified file 
+    git commit -m "Added the a file"
+
+Posting changes to github:
+
+    # This is needed first if the push complains about fastrefs
+    # git pull origin master
+    git push origin master
+   
+Updathing changes from github using Mr. Developer script:
+
+    bin/develop up mobilejoomla
+    
+Creating development database for distribution
+==============================================
+
+This will generate ``setupfiles/developmentdatabase.sql``
+which contains MySQL database with preinstalled Joomla!,
+Terawurfl and Mobilejoomla!.
+
+::
+
+    sh bin/sql_dump.sh
+    git add setupfiles/developmentdatabase.sql
+    git commit -m "New dev db included"
+
+Other tools
+------------
+
+Jappit mobile simulator
+
+* http://www.jappit.com/m/mobilejoomla/proxy.php?d=nokia5800&page=/index.html
 
 Contact
 -------
