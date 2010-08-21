@@ -151,17 +151,24 @@ A utility daemon called `supervisord <http://supervisord.org/>`_ is used to mana
 
 You can start MySQL and Apache with the following command
 
-    % bin/supervisord -n
+::
+    
+    bin/supervisord -n
 	
 This will start supervisor process on foreground (non-daemonized mode). When supervisor is terminated,
 it will terminate all process started by itself.	
 Both MySQL and Apache will be taken down when you press Control-C in the terminal.
 
-When you are launching for the first time you need to run the installation
-script which will set-up the databases (in buildout folder)
+Database setup
+==============
 
-    % parts/mysql/bin/mysqladmin --socket=var/mysql.sock -u root password 'admin'
+If you start MySQL through ``supervisord``, as described above,
+Joomla! site with Mobilejoomla! will be automatically installed for you.
 
+However if you need to run manual install, you can execute the following script
+::
+    scripts/setup_database.sh
+    
 Joomla web site browsing
 ------------------------
 
@@ -255,6 +262,30 @@ Other tools
 Jappit mobile simulator
 
 * http://www.jappit.com/m/mobilejoomla/proxy.php?d=nokia5800&page=/index.html
+
+Troubleshooting
+---------------
+
+
+MySQL
+=====
+
+MySQL doesn't start because there is already an instance running.
+Make sure mysql instances are not running and kill them if needed for restating MySQL::
+    
+    ps -Af|grep -i mysql # see if any running mysqls
+    killall myql
+
+File system layouts
+===================
+
+Diffing Joomla! source code tree for changes::
+
+    cp -r htdocs/ htdocs_no_install
+    # run joomla installer meanwhile
+    cd htdocs/joomla
+    diff -r -q . ../../htdocs_no_install/joomla/
+        
 
 Contact
 -------
