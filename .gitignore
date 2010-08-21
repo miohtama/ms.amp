@@ -27,3 +27,6 @@ dist
 .coverage
 *.pyd 
 *.so
+*.orig
+*.rej
+__minitage__*
