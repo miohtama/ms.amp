@@ -159,6 +159,10 @@ This will start supervisor process on foreground (non-daemonized mode). When sup
 it will terminate all process started by itself.	
 Both MySQL and Apache will be taken down when you press Control-C in the terminal.
 
+.. note ::
+
+    ``parts/`` and ``htdocs/`` folders  
+
 Database setup
 ==============
 

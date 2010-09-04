@@ -24,3 +24,5 @@ else
     echo "Joomla set-up exists"
 fi
 
+exit 0
+
