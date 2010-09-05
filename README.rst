@@ -88,8 +88,10 @@ OSX
 
 * After Macports you can install required command-line software to run buildout
 
-   % sudo port install python2.6
-   % sudo port install git-core +svn bzip2 tar gzip
+::
+   
+   sudo port install python2.6
+   sudo port install git-core +svn bzip2 tar gzip
 
 Linux
 +++++
@@ -125,7 +127,7 @@ The set-up is following:
 
 * Apache web server root: ``htdocs``
 
-* MySQL port 17882
+* MySQL port 3306 (MySQL default, see notes below if you need to run several MySQL instances on the same computer)
 
 * MySQL host: localhost
 
@@ -203,9 +205,14 @@ Then you would enter the following to your mobile browser::
 Joomla installation steps
 -------------------------
 
-* Run PHP installer
+After the supervisord has been started for the first time and the MySQL database is running, run post-install script while PHP is running::
+    
+    sh scripts/install_joomla.sh
+    
+This will create MySQL user and database for you.
 
-* Remove installer directory (rename installation -> _installation)
+The database is prepopulated so you do not need run Joomla! or Mobilejoomla! installers.
+The Joomla! installer directory is renamed www/installation -> www/_installation.
 
 Ports
 -----
@@ -270,15 +277,27 @@ Jappit mobile simulator
 Troubleshooting
 ---------------
 
-
 MySQL
 =====
+
+Connect to the built MySQL by by hand (helper script)::
+
+    bin/mysql # default password is "admin"
 
 MySQL doesn't start because there is already an instance running.
 Make sure mysql instances are not running and kill them if needed for restating MySQL::
     
     ps -Af|grep -i mysql # see if any running mysqls
     killall myql
+    
+If MySQL default port is in use, you can change the port in [ports] section of buildout.cfg
+ and reconfigure MySQL config files by running::
+
+    bin/buildout install ports mycnf supervisor
+
+More about Joomla! and non-standard MySQL ports:
+
+* http://docs.joomla.org/How_to_connect_to_an_external_database
 
 File system layouts
 ===================

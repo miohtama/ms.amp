@@ -304,7 +304,7 @@ expose_php = On
 max_execution_time = 30     ; Maximum execution time of each script, in seconds
 max_input_time = 60	; Maximum amount of time each script may spend parsing request data
 ;max_input_nesting_level = 64 ; Maximum input variable nesting level
-memory_limit = 128M      ; Maximum amount of memory a script may consume (128MB)
+memory_limit = 256M      ; Maximum amount of memory a script may consume (128MB)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -370,12 +370,12 @@ error_reporting = E_ALL
 ;
 ; Default
 ;
-display_errors = Off
+display_errors = On
 
 ; Even when display_errors is on, errors that occur during PHP's startup
 ; sequence are not displayed.  It's strongly recommended to keep
 ; display_startup_errors off, except for when debugging.
-display_startup_errors = Off
+display_startup_errors = On
 
 ; Log errors into a log file (server-specific log, stderr, or error_log (below))
 ; As stated above, you're strongly advised to use error logging in place of
@@ -431,7 +431,7 @@ track_errors = Off
 ;error_append_string = "</font>"
 
 ; Log errors to specified file.
-;error_log = filename
+error_log = php_errors.log
 
 ; Log errors to syslog (Event Log on NT, not valid in Windows 95).
 ;error_log = syslog
