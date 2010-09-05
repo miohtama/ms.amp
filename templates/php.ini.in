@@ -844,7 +844,7 @@ mysqli.default_port = ${ports:mysql}
 
 ; Default socket name for local MySQL connects.  If empty, uses the built-in
 ; MySQL defaults.
-mysqli.default_socket =
+mysqli.default_socket = ${mycnf:sock}
 
 ; Default host for mysql_connect() (doesn't apply in safe mode).
 mysqli.default_host =
