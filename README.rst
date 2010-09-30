@@ -158,8 +158,28 @@ Usage
 =====
 
 A utility daemon called `supervisord <http://supervisord.org/>`_ is used to manage Apache and MySQL launching.
+``supervisord`` is the management process running all the time after it has been started. 
+You can give commands to managment process using ``bin/supervisorctl`` control command.
 
-You can start MySQL and Apache with the following command
+Start MySQL + Apache on background
+
+::
+
+	bin/supervisord
+
+... or if supervisord was already running ... 
+
+::
+
+	bin/supervisorctl start all
+
+Stop MySQL + Apache on background
+
+::
+
+	bin/supervisorctl stop all
+
+You can start MySQL and Apache on foreground with the following command
 
 ::
     
