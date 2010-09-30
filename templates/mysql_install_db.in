@@ -1,0 +1,3 @@
+#!/bin/sh
+
+${mysql:location}/bin/mysql_install_db ${mycnf:opt-foreground} $*

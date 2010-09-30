@@ -105,19 +105,25 @@ Terminal commands
 
 This will checkout the latest mobilejoomla.buildout from Github and run it for you.
 
-    % git clone git://github.com/miohtama/mobilejoomla.buildout.git
-    % cd mobilejoomla.buildout
-    % python bootstrap.py
-    % bin/buildout
+::
+    
+    git clone git://github.com/miohtama/mobilejoomla.buildout.git
+    cd mobilejoomla.buildout
+    python bootstrap.py
+    bin/buildout
 
 .. note ::
 
 	Running buildout command may take up to one hour time as it will download
 	LAMP stack source code and compile it for you.
 
-Then you need to set MySQL master password (admin/admin)
+Then you need create a MySQL database and to set MySQL master password (root/admin)
 
-    % parts/mysql/bin/mysqladmin -u admin password 'admin'
+::
+
+	bin/mysql_install_db
+        bin/supervisord # This will start Apache + MySQL running on background
+    	bin/mysqladmin -u root -padmin password 'admin'
 
 The set-up is following:
 
@@ -134,6 +140,8 @@ The set-up is following:
 * MySQL user: root / admin
 
 * MySQL database name: joomla
+
+* MySQL database files: var/mysql/mysql
 
 * MySQL logs: ``var/log``
 
