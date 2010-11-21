@@ -3,21 +3,18 @@
 Introduction
 ============
 
-mobilejoomla.buildout is automated method to install full 
-Joomla! and Mobilejoomla! AMP stack as a local user. mobilejoomla.buildout is based on `buildout <http://www.buildout.org>`_
+*ms.amp* is automated method to install full *Apache + MySQL + PHP* stack as a local user. 
+
+ms.amp is based on `buildout <http://www.buildout.org>`_
 configuration automator.
 
 Setting up a local AMP stack for Joomla! development on your workstation by hand may easily take one workday.
 This automated script is designed to cut that time to ten minutes of effective work time.  
 
-mobilejoomla.buildout target audience is developers who wish to contribute to Mobilejoomla! development
-or site integrators who wish to test Mobilejoomla! easily.
+ms.amp target audience is developers who wish to develop PHP software
+on their computers easily. ms.amp works across Linux and OSX easily
 
-* It will pull the bleeding edge Mobilejoomla! GIT version for development
-
-* It will automatically install Joomla! with Mobilejoomla! extension and Terawurfl device database (with the supplied database)
-
-* It will installed Apache+MySQL+PHP stack   
+* It will install Apache + MySQL + PHP stack, with phpMyAdmin and Joomla!. Alternatively you can install Wordpress or SugarCRM.
 
 * Applications and libraries are compiled from the scratch so they have known good set (KGS) and you do not need to struggle with distribution specific problems. 
   This includes support for gd, mysqli, zlib and mcrypt PHP modules and Terawurfl handset database. 
@@ -26,7 +23,7 @@ or site integrators who wish to test Mobilejoomla! easily.
 
 * The installation experience is similar on all Linux distributions and OSX - we do not need to provide minimal distribution specific documentation
 
-* You can set-up Mobilejoomla! development environemtn on new computer in the matter of minutes of effective work time
+* You can set-up Joomla! or Wordpress development enviroment on new computer in the matter of minutes of effective work time
 
 * Optionally, you can also install Wordpress, SugarCRM and other PHP applications using the same buildout 
 
@@ -48,7 +45,7 @@ The work is licensed under GPL 2 license.
 Support operating systems
 -------------------------
 
-mobilejoomla.buildout supports **Linux** and **OSX** operating systems.
+ms.amp supports **Linux** and **OSX** operating systems.
 
 We do not support Windows installation due to difficulties of setting up free software stack.
 Advanced Windows users may use instructions here using `MingW <http://www.mingw.org/>`_ or Cygwin
@@ -103,12 +100,12 @@ Install
 Terminal commands
 -----------------
 
-This will checkout the latest mobilejoomla.buildout from Github and run it for you.
+This will checkout the latest ms.amp from Github and run it for you.
 
 ::
     
-    git clone git://github.com/miohtama/mobilejoomla.buildout.git
-    cd mobilejoomla.buildout
+    git clone git://github.com/miohtama/ms.amp.git
+    cd ms.amp
     python bootstrap.py
     bin/buildout
 
@@ -148,8 +145,6 @@ The set-up is following:
 * Joomla admin login http://localhost:17881/joomla/administrator/
 
 * Joomla: admin user is admin/admin.
-
-* Mobilejoomla: not installe, you need to perform manual installation after 
 
 * phpMyAdmin: http://localhost:17881/phpmyadmin
 
